@@ -10,26 +10,45 @@ name = "caravanDEP-study"
 version = "0.1.0"
 description = "Estudo paramétrico de hibridização elétrica da aeronave Caravan DEP"
 readme = "README.md"
-requires-python = ">=3.10"
-package-mode=false
+requires-python = ">=3.10,<3.12"
 
-# Licença interna — ajuste se o projeto for publicado
 license = { text = "Proprietary" }
 
 authors = [
-  { name = "Equipe CaravanDEP" },
+  { name = "Victor Guimarães" },
 ]
 
 # ---------------------------------------------------------------------------
 # Dependências de runtime
 # ---------------------------------------------------------------------------
 dependencies = [
+  # NumPy — fixado abaixo de 2.0 por incompatibilidade do fastga e fastga_he
+  # com as APIs quebradas no NumPy 2.x (np.sum(generator), array 0-d → scalar, etc.)
+  # NÃO fazer upgrade sem testar extensivamente.
+  "numpy>=1.23,<2.0",
+
   # Parsing de XML de input (BeautifulSoup com parser lxml)
   "beautifulsoup4>=4.12",
-  "lxml>=5.0",              # parser XML usado via BeautifulSoup(f, "xml")
+  "lxml>=5.0",
 
   # Análise de dados e saída CSV
   "pandas>=2.0",
+
+  # Framework de otimização multidisciplinar de aeronaves
+  # Fixado em <1.8 para manter compatibilidade com openmdao<3.38
+  # exigido pelo FAST-OAD-CS23-HE. NÃO fazer upgrade sem checar a chain:
+  # fast-oad-core → openmdao → fastga_he
+  "fast-oad-core>=1.7.3,<1.8",
+
+  # OpenMDAO — fixado abaixo de 3.38 por exigência do FAST-OAD-CS23-HE
+  # O fast-oad-core 1.9.0 puxou o 3.42.0 que é incompatível.
+  "openmdao>=3.30,<3.38",
+
+  # FAST-OAD-CS23-HE e fast-ga são repositórios locais — não entram aqui.
+  # Instale-os antes com:
+  #   pip install -r requirements-local.txt
+  # O FAST-OAD-CS23-HE também requer a remoção do aerosandbox das suas
+  # dependências para evitar conflito com o pin do numpy (<2.0).
 ]
 
 # ---------------------------------------------------------------------------
@@ -40,29 +59,29 @@ dependencies = [
 dev = [
   "pytest>=7.4",
   "pytest-cov>=4.1",
-  "ruff>=0.4",          # linter + formatter (substitui flake8 + black + isort)
-  "mypy>=1.10",         # verificação de tipos estáticos
-  "pandas-stubs>=2.0",  # stubs de tipo para pandas
+  "ruff>=0.4",
+  "mypy>=1.10",
+  "pandas-stubs>=2.0",
 ]
 
 notebooks = [
   "jupyter>=1.0",
-  "plotly>=5.0",        # usado pelo fast-ga-he para os gráficos interativos
-  "kaleido>=0.2",       # exportação estática de figuras Plotly
+  "plotly>=5.0",    # usado pelo fastga_he para gráficos interativos
+  "kaleido>=0.2",   # exportação estática de figuras Plotly
 ]
 
 # ---------------------------------------------------------------------------
-# Entry points (scripts de linha de comando)
+# Entry points
 # ---------------------------------------------------------------------------
 [project.scripts]
 run-study = "run_study:run_study"
 
 # ---------------------------------------------------------------------------
-# Configuração do setuptools — onde estão os módulos do projeto
+# Configuração do setuptools
 # ---------------------------------------------------------------------------
 [tool.setuptools.packages.find]
-where = ["."]         # raiz do projeto
-include = ["utils*"]  # inclui o pacote utils (filter_residuals, etc.)
+where = ["src"]
+include = ["utils*"]
 
 # ---------------------------------------------------------------------------
 # Ruff — linter e formatter
@@ -80,17 +99,17 @@ select = [
   "B",   # flake8-bugbear
 ]
 ignore = [
-  "E501",  # linha longa — já controlada por line-length
+  "E501",
 ]
 
 # ---------------------------------------------------------------------------
-# Mypy — verificação de tipos
+# Mypy
 # ---------------------------------------------------------------------------
 [tool.mypy]
 python_version = "3.10"
 warn_unused_imports = true
 warn_return_any = true
-ignore_missing_imports = true   # fast-ga e fast-ga-he provavelmente não têm stubs
+ignore_missing_imports = true
 
 # ---------------------------------------------------------------------------
 # Pytest

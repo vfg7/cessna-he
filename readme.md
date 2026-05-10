@@ -211,3 +211,36 @@ fast-oad-cs23-he 0.0.1 requires jupyterlab-widgets==3.0.15, but you have jupyter
 
 chequei e aerosandbox não é necessário e não estou usando notebooks. Então vamo seguir com isso.
 
+6. RODOOOOOOOOOOOOU!
+NÃO É NEM O MEU TRBALHO E FIQUEI FELIZ PRA CARALHO
+
+7. Ah, e como usar isso aqui? 
+Clona o repo pra tu, instala as dependencias e mete teu xml e yml de projeto. 
+O passo a passo bonitinho:
+
+# 1. Clonar e entrar na raiz
+git clone <repo-url>
+cd <projeto>
+
+# 2. Criar e ativar o ambiente virtual
+python -m venv .venv
+.venv\Scripts\activate        # Windows
+# source .venv/bin/activate   # Linux/macOS
+
+# 3. Instalar o FAST-OAD-CS23-HE local primeiro
+pip install -e ./FAST-OAD-CS23-HE
+
+# 4. Instalar o projeto principal
+pip install -e ".[dev]"
+
+Atenção antes de rodar:
+
+Remover aerosandbox das dependências do FAST-OAD-CS23-HE/pyproject.toml
+Corrigir o import em FAST-OAD-CS23-HE/src/fastga_he/models/weight/mass_breakdown/b_propulsion/power_train_mass_rta.py: trocar fastoad_cs25 por fastga
+Corrigir np.sum(inputs.values()) → sum(inputs.values()) em c_systems/sum.py
+
+Eu usei pip, mas é o equivalente ao poetry install para o ecossistema pip/setuptools. A diferença é que o Poetry gera um poetry.lock com versões exatas de todas as dependências transitivas (o que é mais seguro, confesso), enquanto o pip resolve na hora — mas com os pins que colocamos no pyproject.toml o resultado é igualmente determinístico para as dependências críticas.
+
+Execução:
+da raiz do projeto, no terminal: Python src/run_study.py
+(execute da raiz pra evitar erros de path)
