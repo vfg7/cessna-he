@@ -210,3 +210,4 @@ tentei instaslar e recebi um erro alerta: aerosandbox 4.2.9 requires numpy>=2.2.
 fast-oad-cs23-he 0.0.1 requires jupyterlab-widgets==3.0.15, but you have jupyterlab-widgets 1.1.11 which is incompatible.
 
 chequei e aerosandbox não é necessário e não estou usando notebooks. Então vamo seguir com isso.
+
