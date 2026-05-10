@@ -236,7 +236,9 @@ fast-oad-cs23-he 0.0.1 requires jupyterlab-widgets==3.0.15, but you have jupyter
 - chequei e aerosandbox não é necessário e não estou usando notebooks. Então vamo seguir com isso.
 
 # 6. RODOOOOOOOOOOOOU!
-NÃO É NEM O MEU TRBALHO E FIQUEI FELIZ PRA CARALHO
+Debug deu certo :D 
+
+- NÃO É NEM O MEU TRBALHO E FIQUEI FELIZ DEMAIS
 
 # 7. Ah, e como usar isso aqui? 
 
@@ -244,19 +246,19 @@ Clona o repo pra tu, instala as dependencias e mete teu xml e yml de projeto.
 
 O passo a passo bonitinho:
 
-# 1. Clonar e entrar na raiz
+## 1. Clonar e entrar na raiz
 git clone <repo-url>
 cd <projeto>
 
-# 2. Criar e ativar o ambiente virtual
+## 2. Criar e ativar o ambiente virtual
 python -m venv .venv
-.venv\Scripts\activate        # Windows
-# source .venv/bin/activate   # Linux/macOS
+  .venv\Scripts\activate      # Windows
+  source .venv/bin/activate   # Linux/macOS
 
-# 3. Instalar o FAST-OAD-CS23-HE local primeiro
+## 3. Instalar o FAST-OAD-CS23-HE local primeiro
 pip install -e ./FAST-OAD-CS23-HE
 
-# 4. Instalar o projeto principal
+## 4. Instalar o projeto principal
 pip install -e ".[dev]"
 
 ### Atenção antes de rodar:
