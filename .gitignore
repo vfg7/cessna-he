@@ -1,0 +1,14 @@
+# Ambiente Virtual
+.venv/
+venv/
+ENV/
+
+# Pasta específica do projeto
+FAST-OAD-CS23-HE/
+
+# Arquivos de log e cache do Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.python-version

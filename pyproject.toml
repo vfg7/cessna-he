@@ -1,0 +1,100 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+# ---------------------------------------------------------------------------
+# Metadados do projeto
+# ---------------------------------------------------------------------------
+[project]
+name = "caravanDEP-study"
+version = "0.1.0"
+description = "Estudo paramétrico de hibridização elétrica da aeronave Caravan DEP"
+readme = "README.md"
+requires-python = ">=3.10"
+package-mode=false
+
+# Licença interna — ajuste se o projeto for publicado
+license = { text = "Proprietary" }
+
+authors = [
+  { name = "Equipe CaravanDEP" },
+]
+
+# ---------------------------------------------------------------------------
+# Dependências de runtime
+# ---------------------------------------------------------------------------
+dependencies = [
+  # Parsing de XML de input (BeautifulSoup com parser lxml)
+  "beautifulsoup4>=4.12",
+  "lxml>=5.0",              # parser XML usado via BeautifulSoup(f, "xml")
+
+  # Análise de dados e saída CSV
+  "pandas>=2.0",
+]
+
+# ---------------------------------------------------------------------------
+# Dependências opcionais
+# ---------------------------------------------------------------------------
+[project.optional-dependencies]
+
+dev = [
+  "pytest>=7.4",
+  "pytest-cov>=4.1",
+  "ruff>=0.4",          # linter + formatter (substitui flake8 + black + isort)
+  "mypy>=1.10",         # verificação de tipos estáticos
+  "pandas-stubs>=2.0",  # stubs de tipo para pandas
+]
+
+notebooks = [
+  "jupyter>=1.0",
+  "plotly>=5.0",        # usado pelo fast-ga-he para os gráficos interativos
+  "kaleido>=0.2",       # exportação estática de figuras Plotly
+]
+
+# ---------------------------------------------------------------------------
+# Entry points (scripts de linha de comando)
+# ---------------------------------------------------------------------------
+[project.scripts]
+run-study = "run_study:run_study"
+
+# ---------------------------------------------------------------------------
+# Configuração do setuptools — onde estão os módulos do projeto
+# ---------------------------------------------------------------------------
+[tool.setuptools.packages.find]
+where = ["."]         # raiz do projeto
+include = ["utils*"]  # inclui o pacote utils (filter_residuals, etc.)
+
+# ---------------------------------------------------------------------------
+# Ruff — linter e formatter
+# ---------------------------------------------------------------------------
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+
+[tool.ruff.lint]
+select = [
+  "E",   # pycodestyle errors
+  "F",   # pyflakes
+  "I",   # isort
+  "UP",  # pyupgrade
+  "B",   # flake8-bugbear
+]
+ignore = [
+  "E501",  # linha longa — já controlada por line-length
+]
+
+# ---------------------------------------------------------------------------
+# Mypy — verificação de tipos
+# ---------------------------------------------------------------------------
+[tool.mypy]
+python_version = "3.10"
+warn_unused_imports = true
+warn_return_any = true
+ignore_missing_imports = true   # fast-ga e fast-ga-he provavelmente não têm stubs
+
+# ---------------------------------------------------------------------------
+# Pytest
+# ---------------------------------------------------------------------------
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --tb=short"

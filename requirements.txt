@@ -1,0 +1,8 @@
+# Dependências locais — instalar na ordem abaixo antes de rodar
+# pip install -e . no projeto principal.
+#
+# Ajuste os caminhos para onde os repositórios estão clonados na sua máquina.
+# Convenção: todos os repos irmãos na mesma pasta pai.
+
+# Plugin de powertrain elétrico/híbrido (FAST-GA-HE)
+-e ../FAST-OAD-CS23-HE
