@@ -99,7 +99,7 @@
       </vertical_tail>
       <wing>
         <area units="m**2" is_input="True">25.761896772961983<!--_inp_data:geometry:wing:area--></area>
-        <aspect_ratio units="m**2" is_input="True">9.67<!--_inp_data:geometry:wing:aspect_ratio--></aspect_ratio>
+        <aspect_ratio is_input="True">9.67<!--_inp_data:geometry:wing:aspect_ratio--></aspect_ratio>
         <span units="m" is_input="True">15.825819270931014<!--wing span--></span>
         <sweep_25 units="deg" is_input="True">0.0<!--sweep angle at 25% chord of wing--></sweep_25>
         <taper_ratio is_input="True">0.53<!--taper ratio of wing--></taper_ratio>
@@ -196,7 +196,7 @@
         <thrust_distribution is_input="True">[1.0, 0.05555555555555556, 0.05555555555555556]</thrust_distribution>
         <DC_DC_converter>
           <dc_dc_converter_1>
-            <efficiency_mission is_input="True">[NaN, NaN]<!--Efficiency of the DC/DC converter for the points--></efficiency_mission>
+            <efficiency_mission is_input="True">0.95<!--Efficiency of the DC/DC converter for the points--></efficiency_mission>
             <front_length_ratio is_input="True">0.9<!--Location of the DC/DC converter CG as a ratio of the aircraft front length--></front_length_ratio>
             <switching_frequency_mission units="Hz" is_input="True">12000.0<!--Switching frequency of the DC/DC converter for the points--></switching_frequency_mission>
             <voltage_out_target_mission units="V" is_input="True">1000.0<!--Target output voltage of the DC/DC converter for the points--></voltage_out_target_mission>
@@ -364,9 +364,9 @@
         </fuel_tank>
         <inverter>
           <inverter_1>
-            <efficiency_mission is_input="True">[NaN, NaN]<!--Efficiency of the inverter for the points--></efficiency_mission>
+            <efficiency_mission is_input="True">0.95<!--Efficiency of the inverter for the points--></efficiency_mission>
             <heat_sink_temperature_mission units="degK" is_input="True">288.15<!--Heat sink temperature of the inverter for the points--></heat_sink_temperature_mission>
-            <junction_temperature_mission units="degK" is_input="True">[NaN, NaN]<!--Junction temperature of the inverter for the performances computation--></junction_temperature_mission>
+            <junction_temperature_mission units="degK" is_input="True">358.15<!--Junction temperature of the inverter for the performances computation--></junction_temperature_mission>
             <power_factor is_input="True">1.0</power_factor>
             <switching_frequency_mission units="Hz" is_input="True">12000.0<!--Switching frequency of the inverter for the points--></switching_frequency_mission>
             <voltage_ripple is_input="True">0.01<!--Amplitude of the voltage ripple the capacitor should be able to withstand, as a percent of voltage caliber--></voltage_ripple>
@@ -421,9 +421,9 @@
             </properties>
           </inverter_1>
           <inverter_2>
-            <efficiency_mission is_input="True">[NaN, NaN]<!--Efficiency of the inverter for the points--></efficiency_mission>
+            <efficiency_mission is_input="True">0.95<!--Efficiency of the inverter for the points--></efficiency_mission>
             <heat_sink_temperature_mission units="degK" is_input="True">288.15<!--Heat sink temperature of the inverter for the points--></heat_sink_temperature_mission>
-            <junction_temperature_mission units="degK" is_input="True">[NaN, NaN]<!--Junction temperature of the inverter for the performances computation--></junction_temperature_mission>
+            <junction_temperature_mission units="degK" is_input="True">358.15<!--Junction temperature of the inverter for the performances computation--></junction_temperature_mission>
             <power_factor is_input="True">1.0</power_factor>
             <switching_frequency_mission units="Hz" is_input="True">12000.0<!--Switching frequency of the inverter for the points--></switching_frequency_mission>
             <voltage_ripple is_input="True">0.01<!--Amplitude of the voltage ripple the capacitor should be able to withstand, as a percent of voltage caliber--></voltage_ripple>

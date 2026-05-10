@@ -116,7 +116,7 @@
 </vertical_tail>
 <wing>
 <area is_input="True" units="m**2">25.761896772961983<!--_inp_data:geometry:wing:area--></area>
-<aspect_ratio is_input="True" units="m**2">9.67<!--_inp_data:geometry:wing:aspect_ratio--></aspect_ratio>
+<aspect_ratio is_input="True">9.67<!--_inp_data:geometry:wing:aspect_ratio--></aspect_ratio>
 <span is_input="True" units="m">15.825819270931014<!--wing span--></span>
 <sweep_25 is_input="True" units="deg">0.0<!--sweep angle at 25% chord of wing--></sweep_25>
 <taper_ratio is_input="True">0.53<!--taper ratio of wing--></taper_ratio>
@@ -348,6 +348,7 @@
 <front_length_ratio is_input="True">0.9<!--Location of the DC/DC converter CG as a ratio of the aircraft front length--></front_length_ratio>
 <switching_frequency_mission is_input="True" units="Hz">12000.0<!--Switching frequency of the DC/DC converter for the points--></switching_frequency_mission>
 <voltage_out_target_mission is_input="True" units="V">1000.0<!--Target output voltage of the DC/DC converter for the points--></voltage_out_target_mission>
+<efficiency_mission is_input="True">0.95</efficiency_mission>
 <voltage_ripple is_input="True">0.02<!--Amplitude of the voltage ripple as a percent of the voltage caliber--></voltage_ripple>
 <capacitor>
 <aspect_ratio is_input="True">1.0<!--Ratio of the capacitor diameter over its height--></aspect_ratio>
@@ -445,6 +446,8 @@
 <inverter_1>
 <heat_sink_temperature_mission is_input="True" units="degK">288.15<!--Heat sink temperature of the inverter for the points--></heat_sink_temperature_mission>
 <power_factor is_input="True">1.0</power_factor>
+<efficiency_mission is_input="True">0.95</efficiency_mission>
+<junction_temperature_mission is_input="True" units="degK">358.15</junction_temperature_mission>
 <switching_frequency_mission is_input="True" units="Hz">12000.0<!--Switching frequency of the inverter for the points--></switching_frequency_mission>
 <voltage_ripple is_input="True">0.01<!--Amplitude of the voltage ripple the capacitor should be able to withstand, as a percent of voltage caliber--></voltage_ripple>
 <CG>
@@ -503,6 +506,8 @@
 <inverter_2>
 <heat_sink_temperature_mission is_input="True" units="degK">288.15<!--Heat sink temperature of the inverter for the points--></heat_sink_temperature_mission>
 <power_factor is_input="True">1.0</power_factor>
+<efficiency_mission is_input="True">0.95</efficiency_mission>
+<junction_temperature_mission is_input="True" units="degK">358.15</junction_temperature_mission>
 <switching_frequency_mission is_input="True" units="Hz">12000.0<!--Switching frequency of the inverter for the points--></switching_frequency_mission>
 <voltage_ripple is_input="True">0.01<!--Amplitude of the voltage ripple the capacitor should be able to withstand, as a percent of voltage caliber--></voltage_ripple>
 <CG>

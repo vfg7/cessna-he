@@ -146,7 +146,7 @@ podem ser que esses valores sejam outputs desejados (querem projetar um avião c
 
 <TLAR> -> adicionei: <v_max_sl units="knot" is_input="True">175.0</v_max_sl>
 
-<aspect_ratio  is_input="True" units="m**2">9.67<!--_inp_data:geometry:wing:aspect_ratio--></aspect_ratio>
+<aspect_ratio  is_input="True">9.67<!--_inp_data:geometry:wing:aspect_ratio--></aspect_ratio>
 
 5.4.2: consertando 5.3.2
 As variáveis existem no xml. como, por exemplo:
@@ -157,6 +157,56 @@ E aí, especifiquei com:
 input_file: ../data/Input_CaravanDEP_2_036.xml
 check_inputs: False
 
+nessa brincadeira, chequei também que:
+dc_dc_converter_1:efficiency_mission
+inverter_1:efficiency_mission
+inverter_1:junction_temperature_mission
+inverter_2:efficiency_mission
+inverter_2:junction_temperature_mission
 
+não estão no XML de input. Vacilo ou erro de projeto? Alá sabe responder. Eu, que não sou alá, não julgo.
+Pesquisei valores físicos razoáveis pra aplicação e vou adicionar ao projeto
 
+na seção: DC/DC converter
+<efficiency_mission is_input="True">0.95</efficiency_mission>
 
+nas seções: Inverter 1 e Inverter 2
+<efficiency_mission is_input="True">0.95</efficiency_mission>
+<junction_temperature_mission is_input="True" units="degK">358.15</junction_temperature_mission>
+
+5.5 Bugs
+
+5.5.1 bug de compatibilidade de versão do NumPy dentro do fastga_he.
+
+O problema está em:
+FAST-OAD-CS23-HE\src\fastga_he\models\weight\mass_breakdown\c_systems\sum.py, linha 89
+outputs["data:weight:systems:mass"] = np.sum(inputs.values())
+O np.sum(generator) foi depreciado no NumPy e agora lança TypeError
+
+como tenho acesso direto ao arquivo FAST-OAD-CS23-HE\src\fastga_he\models\weight\mass_breakdown\c_systems\sum.py (onde o console apontou o erro) vou lá mudar. Linha 89: 
+# de:
+outputs["data:weight:systems:mass"] = np.sum(inputs.values())
+
+# para:
+outputs["data:weight:systems:mass"] = sum(inputs.values())
+
+Chequei todas as outrsa instâncias m que poderia achar o msm bug:
+
+FAST-OAD-CS23-HE\src\fastga_he\models\cost\lcc_certification_cost.py:59:        outputs["data:cost:production:certification_cost_per_unit"] = 
+np.sum(inputs.values())
+FAST-OAD-CS23-HE\src\fastga_he\models\cost\lcc_operational_cost_sum.py:91:        outputs["data:cost:operation:annual_cost_per_unit"] = np.sum(inputs.values())     
+FAST-OAD-CS23-HE\src\fastga_he\models\cost\lcc_production_cost_sum.py:99:        outputs["data:cost:production_cost_per_unit"] = np.sum(inputs.values())
+FAST-OAD-CS23-HE\src\fastga_he\models\environmental_impacts\lca_core_aggregation.py:18:        outputs["data:environmental_impact:single_score"] =
+np.sum(inputs.values())
+FAST-OAD-CS23-HE\src\fastga_he\models\weight\mass_breakdown\a_airframe\sum.py:95:        outputs["data:weight:airframe:mass"] = np.sum(inputs.values())
+FAST-OAD-CS23-HE\src\fastga_he\models\weight\mass_breakdown\c_systems\sum.py:89:        # outputs["data:weight:systems:mass"] = np.sum(inputs.values())
+
+E vou pra evitar merda. Yay! 
+... claro que não. Imagino que, se isso está em tantos lugares também pode estar na lib original que não tenho acesso e não posso mudar na mão. Melhor sacar qual versão do numpy foi usada e trocar pra ela. **Isso deveria estar no pyproject da lib FAST-OAD-CS23-HE.** É má gestão de dependências.
+
+Chequei e numpy>=1.23,<2.0
+
+tentei instaslar e recebi um erro alerta: aerosandbox 4.2.9 requires numpy>=2.2.6, but you have numpy 1.26.4 which is incompatible.
+fast-oad-cs23-he 0.0.1 requires jupyterlab-widgets==3.0.15, but you have jupyterlab-widgets 1.1.11 which is incompatible.
+
+chequei e aerosandbox não é necessário e não estou usando notebooks. Então vamo seguir com isso.
